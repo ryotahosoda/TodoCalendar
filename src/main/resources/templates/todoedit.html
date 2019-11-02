@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TODOの編集</title>
+    <meta charset="UTF-8">
+    <div th:replace="base"></div>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<br>
+<form method="post" action="/alltodo" th:object="${todo}">
+<table border="1" bordercolor="black" width="85%" align="center" style="border-collapse: collapse" rules="none">
+    <tr>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>TODOの内容を変更します</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td width="20%">ToDo名</td>
+        <td>
+            <div class="form-group" th:classappend="${#fields.hasErrors('todoName')}? has-error">
+                <input class="form" type="text" name="todoName" th:value="${edittodo.todoName}"><br>
+                <span class="err" th:if="${#fields.hasErrors('todoName')}" th:errors="*{todoName}"></span>
+                <span class="err" th:if="${errmessage}!=null" th:text="${errmessage}"></span>
+            </div>
+        </td>
+        <td rowspan="2">
+            <button class="updateButton" type="submit" name="updateTODO" th:value="${edittodo.todoId}">更新</button>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td width="20%">期限(yyyy年MM月dd日)</td>
+        <td>
+            <input class="form"type="text" name="limitDate" th:value="${#dates.format(edittodo.limitDate, 'yyyy年MM月dd日')}"><br>
+            <span class="err" th:if="${#fields.hasErrors('limitDate')}" th:errors="*{limitDate}"></span>
+        </td>
+        <td>&nbsp; </td>
+    </tr>
+    <tr>
+        <td>&nbsp; </td>
+        <td>重要度</td>
+        <td>
+            <div th:if="${imp == T(com.example.demo.Enum.TodoEnum).low}">
+                <div class="cp_ipradio">
+                    <label><input class="option-input" type="radio" name="importance" value="low" checked>low</label>
+                    <label><input class="option-input" type="radio" name="importance" value="medium">medium</label>
+                    <label><input class="option-input" type="radio" name="importance" value="high">high</label>
+                </div>
+            </div>
+            <div th:if="${imp == T(com.example.demo.Enum.TodoEnum).medium}">
+                <div class="cp_ipradio">
+                    <label><input class="option-input" type="radio" name="importance" value="low">low</label>
+                    <label><input class="option-input" type="radio" name="importance" value="medium" checked>medium</label>
+                    <label><input class="option-input" type="radio" name="importance" value="high">high</label>
+                </div>
+            </div>
+            <div th:if="${imp == T(com.example.demo.Enum.TodoEnum).high}">
+                <div class="cp_ipradio">
+                    <label><input class="option-input" type="radio" name="importance" value="low">low</label>
+                    <label><input class="option-input" type="radio" name="importance" value="medium">medium</label>
+                    <label><input class="option-input" type="radio" name="importance" value="high" checked>high</label>
+                </div>
+            </div>
+        </td>
+        <td>&nbsp; </td>
+        <td>&nbsp; </td>
+    </tr>
+
+</table>
+</form>
+</body>
+</html>

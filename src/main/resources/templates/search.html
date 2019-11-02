@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>検索</title>
+    <div th:replace="base"></div>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="/script.js" th:src="@{/script.js}"></script>
+</head>
+<body>
+<br>
+<form action="/search" method="post">
+        <input class="search" name="searchName" th:value="${searchData}" type="text">
+        <button class="searchButton" name="search" type="submit">検索</button>
+</form>
+
+<div class="search" th:if="${searchTodo == T(com.example.demo.Enum.SearchTodoEnum).Available}">
+    <p class="msg" th:text="'Todoが' + ${countTodo} + '件見つかりました'"></p>
+    <table align="center" border="1" bordercolor="black" rules="none" style="border-collapse: collapse" th:each="search: ${todoData}" width="85%">
+        <tr>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>  </td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td colspan="2" class="search-name" th:text="${search.todoName}"></td>
+            <form action="/editTODO" method="post">
+                <td rowspan="3">
+                    <button class="editButton" name="editTodo" th:value="${search.todoId}" type="submit">+編集</button>
+                </td>
+            </form>
+            <form action="/search" method="post" name="finish">
+                <td rowspan="3">
+                    <div th:if="${search.finish}">
+                        <button class="finishToDo" name="finish" th:value="${search.todoId}" type="submit">完了</button>
+                        <input name="search_name" th:value="${searchData}" type="hidden">
+                    </div>
+                    <div th:unless="${search.finish}">
+                        <button class="finishToDo" name="finish" th:value="${search.todoId}" type="submit">未完了</button>
+                        <input name="search_name" th:value="${searchData}" type="hidden">
+                    </div>
+                </td>
+            </form>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td>期限:</td>
+            <td th:text="${#dates.format(search.limitDate, 'yyyy年MM月dd日')}">
+            </td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td>作成日:</td>
+            <td th:text="${#dates.format(search.makeDate, 'yyyy年MM月dd日')}"></td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td>重要度:</td>
+            <td th:text="${search.importance}">&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+        </tr>
+        <br>
+    </table>
+    <br>
+</div>
+<div class="search" th:if="${searchSchedule == T(com.example.demo.Enum.SearchScheduleEnum).Available}">
+    <p class="msg" th:text="'予定が' + ${countSchedule} + '件見つかりました'"></p>
+    <table align="center" border="1" bordercolor="black" rules="none" style="border-collapse: collapse" th:each="search: ${scheduleData}" width="85%">
+        <tr>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>  </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td colspan="2" class="search-name" th:text="${search.scheduleName}"></td>
+            <form action="/editSchedule" method="post">
+                <td rowspan="3">
+                    <button class="editButton" name="editSchedule" th:value="${search.scheduleid}" type="submit">+編集</button>
+                </td>
+            </form>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td>開始時間:</td>
+            <td th:text="${#dates.format(search.startTime, 'yyyy年MM月dd日')}"></td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td>終了時間:</td>
+            <td th:text="${#dates.format(search.endTime, 'yyyy年MM月dd日')}"></td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+        </tr>
+        <tr>
+            <td>&nbsp; </td>
+            <td>  </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+            <td>&nbsp; </td>
+        </tr>
+        <br>
+    </table>
+    <br>
+</div>
+<div th:if="${searchTodo == T(com.example.demo.Enum.SearchTodoEnum).notAvailable}">
+    <p class="msg">対象のTodoは見つかりません</p>
+</div>
+<div th:if="${searchSchedule == T(com.example.demo.Enum.SearchScheduleEnum).notAvailable}">
+    <p class="msg">対象の予定は見つかりません</p>
+</div>
+
+<div th:if="${searchTodo == T(com.example.demo.Enum.SearchTodoEnum).first}">
+</div>
+<div th:if="${searchSchedule == T(com.example.demo.Enum.SearchScheduleEnum).first}">
+</div>
+</body>
+</html>

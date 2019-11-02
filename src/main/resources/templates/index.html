@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="base"></div>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <style>
+
+        body {
+            margin: 40px 10px;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #loading {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+
+    <link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
+    <script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+    <script src='webjars/moment/2.19.1/min/moment.min.js'></script>
+    <script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                events: {
+                    url : '/api/events'
+                }
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div id='loading'>loading...</div>
+
+<div id='calendar'></div>
+<br>
+
+<div th:if="${mode}==1">
+    <form method="post" action="/"  th:action="@{/}" th:object="${todo}">
+        <table border="1" bordercolor="black" width="85%" align="center" style="border-collapse: collapse" rules="none">
+
+            <tr>
+                <td> </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>
+                    <button class="change-button" type="submit" name="change-to-schedule" value="予定に切り替え">予定に切り替え</button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td>新しいToDoを作成する</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td width="20%">ToDo名</td>
+                <td>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('todoName')}? has-error">
+                        <input class="nameToDo" type="text" th:field="*{todoName}"><br>
+                        <span class="err" th:if="${#fields.hasErrors('todoName')}" th:errors="*{todoName}"></span>
+                        <span class="err" th:if="${err}!=null" th:text="${err}" ></span>
+                    </div>
+                </td>
+                <td rowspan="2"><input class="addTodoButton" type="submit" name="addTodo" value="ToDoの追加"></td>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td width="20%">期限(yyyy年MM月dd日)</td>
+                <td>
+                    <input class="limitToDo" type="text" th:field="*{limitDate}"><br>
+                    <span class="err" th:if="${#fields.hasErrors('limitDate') && isSchedulenameError != 1}" th:errors="*{limitDate}"></span>
+                </td>
+                <td>&nbsp; </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td>重要度</td>
+                <td>
+                    <div class="cp_ipradio">
+                        <label><input class="option-input" type="radio" name="importance" value="low" checked>low</label>
+                        <label><input class="option-input" type="radio" name="importance" value="medium">medium</label>
+                        <label><input class="option-input" type="radio" name="importance" value="high">high</label>
+                    </div>
+                </td>
+                <td>&nbsp; </td>
+                <td>&nbsp; </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+
+<div th:if="${mode==2}">
+    <form method="post" action="/"  th:action="@{/}" th:object="${schedule}">
+        <table border="1" bordercolor="black" width="85%" align="center" style="border-collapse: collapse" rules="none">
+
+            <tr>
+                <td> </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>
+                    <button class="change-button" type="submit" name="change-to-todo" value="TODOに切り替え">TODOに切り替え</button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td>新しい予定を作成する</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td width="20%">予定名</td>
+                <td>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('scheduleName')}? has-error">
+                        <input class="scheduleName" type="text" th:field="*{scheduleName}"><br>
+                        <span class="err" th:if="${#fields.hasErrors('scheduleName')}" th:errors="*{scheduleName}"></span>
+                        <span class="err" th:if="${err}!=null" th:text="${err}" ></span>
+                    </div>
+                </td>
+                <td rowspan="2"><input class="addScheduleButton" type="submit" name="addschedule" value="予定の追加"></td>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td width="20%">開始(yyyy年MM月dd日)</td>
+                <td>
+                    <input class="startTime" type="text" th:field="*{startTime}"><br>
+                    <span class="err" th:if="${#fields.hasErrors('startTime') && isSchedulenameError != 1}" th:errors="*{startTime}"></span>
+                </td>
+                <td>&nbsp; </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>&nbsp; </td>
+                <td width="20%">終了(yyyy年MM月dd日)</td>
+                <td>
+                    <input class="endTime" type="text" th:field="*{endTime}"><br>
+                    <span class="err" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></span></td>
+                <td>&nbsp; </td>
+                <td>&nbsp; </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+</body>
+</html>

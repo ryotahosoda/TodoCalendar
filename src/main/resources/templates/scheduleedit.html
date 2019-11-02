@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="base"></div>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<form method="post" action="/allschedule" th:object="${schedule}">
+    <table border="1" bordercolor="black" width="85%" align="center" style="border-collapse: collapse" rules="none">
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <!--<button class="change-to-schedule" type="submit" name="change-to-schedule" value="予定に切り替え">予定に切り替え</button>-->
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>予定の内容を変更します</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td width="20%">予定名</td>
+            <td>
+                    <input class="form" type="text" name="scheduleName" th:value="${editSchedule.scheduleName}"><br>
+                    <span class="err" th:if="${#fields.hasErrors('scheduleName')}" th:errors="*{scheduleName}"></span>
+            </td>
+            <td rowspan="2">
+                <button class="updateButton" type="submit" name="updateschedule" th:value="${editSchedule.scheduleid}">更新</button>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td width="20%">開始(yyyy年MM月dd日)</td>
+            <td>
+                <input class="form"type="text" name="startTime" th:value="${#dates.format(editSchedule.startTime, 'yyyy年MM月dd日')}"><br>
+                <span class="err" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></span>
+            </td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td width="20%">終了(yyyy年MM月dd日)</td>
+            <td>
+                <input class="form"type="text" name="endTime" th:value="${#dates.format(editSchedule.endTime, 'yyyy年MM月dd日')}"><br>
+                <span class="err" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></span>
+            </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<div class="base">
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <span class="Todo-search" style="float: right">
+        <a class="Todo-search" th:href="@{/search}">検索</a>
+    </span>
+    <span class="allSchedule" style="float: right">
+        <a class="allSchedule" th:href="@{/allschedule}">予定</a>
+    </span>
+    <span class="allTodo" style="float: right">
+        <a class="allTodo" th:href="@{/alltodo}">TODOリスト</a>
+    </span>
+    <span class="calendar">
+        <a class="calendar" th:href="@{/}">カレンダー</a>
+    </span>
+</div>
+</html>

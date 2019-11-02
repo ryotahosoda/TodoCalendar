@@ -1,0 +1,204 @@
+input.form{
+width:70%;
+align:left;
+}
+
+.addTodoButton{
+background-color:red;
+font-size:large;
+font-weight: bold;
+color:black;
+width:150px;
+height:50px;
+border: thin solid black;
+}
+
+.addScheduleButton{
+    background-color:blue;
+    font-size:large;
+    font-weight: bold;
+    color:black;
+    width:150px;
+    height:50px;
+    border: thin solid black;
+}
+
+.updateButton{
+    background-color: #ff646c;
+    font-size:large;
+    font-weight: bold;
+    color:black;
+    width:150px;
+    height:50px;
+    border: thin solid black;
+}
+
+button.editButton{
+background-color:#99FFB2;
+font-size:large;
+font-weight: bold;
+color:black;
+width:150px;
+height:50px;
+border: thin solid black;
+}
+
+button.searchButton{
+    background-color: #3efdff;
+    font-size:large;
+    font-weight: bold;
+    color:black;
+    width:150px;
+    height:50px;
+    border: thin solid black;
+}
+
+button.finishToDo{
+background-color:#FFB299;
+font-size:large;
+font-weight: bold;
+color:black;
+width:150px;
+height:50px;
+border: thin solid black;
+}
+
+.err{
+color: red;
+}
+
+a.Todo-link{
+padding-right:30px;
+text-decoration: none;
+font-weight:bold;
+font-size:25pt;
+color:black;
+}
+
+a.calendar{
+    padding-left:30px;
+    text-decoration: none;
+    font-weight:bold;
+    font-size:25pt;
+    color:black;
+}
+
+a.allSchedule{
+     padding-right:30px;
+     text-decoration: none;
+     font-weight:bold;
+     font-size:25pt;
+     color:black;
+ }
+a.allTodo{
+    padding-right:30px;
+    text-decoration: none;
+    font-weight:bold;
+    font-size:25pt;
+    color:black;
+}
+
+a.Todo-search{
+padding-right:30px;
+text-decoration: none;
+color:green;
+font-size:25pt;
+font-weight:bold;
+}
+
+div.base{
+border: thin solid black;
+margin-left:-8px;
+margin-right:-8px;
+background-color:rgb(204,255,255);
+}
+
+body{
+background-color:rgb(229,229,229);
+}
+
+table{
+background-color:white;
+}
+
+input.search{
+font-size:150%;
+height:43px;
+width:72%;
+margin-right:50px;
+margin-left:98px;
+}
+
+p.msg{
+color:red;
+padding-left:98px;
+font-weight:bold;
+}
+
+td.search-name{
+font-weight:bold;
+}
+
+.change-button{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.change-button:active{
+    /*ボタンを押したとき*/
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);/*影を小さく*/
+    border-bottom: none;
+}
+
+.cp_ipradio {
+    width: 90%;
+    margin: 2em auto;
+    text-align: left;
+}
+
+.cp_ipradio label {
+    line-height: 135%;
+    position: relative;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+.cp_ipradio .option-input {
+    position: relative;
+    margin: 0 1rem 0 0;
+    cursor: pointer;
+}
+.cp_ipradio .option-input:before,
+.cp_ipradio .option-input:after {
+    position: absolute;
+    z-index: 1;
+    top: -0.125rem;
+    left: -0.125rem;
+    width: 1rem;
+    height: 1rem;
+    content: '';
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+    background: #ffffff;
+}
+.cp_ipradio .option-input:after {
+    z-index: 0;
+    top: -0.25rem;
+    left: -0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: #da4146;
+}
+.cp_ipradio .option-input:checked:before {
+    -webkit-transform: scale(0, 0);
+    transform: scale(0, 0);
+    border-width: 0.625rem;
+    border-color: #da3c41;
+}
